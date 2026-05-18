@@ -15,15 +15,6 @@
       margin-bottom: 10px;
     }
 
-    /* 管理者エリア */
-    .admin {
-      display: none;
-      padding: 12px;
-      margin-bottom: 15px;
-      background: #fff3cd;
-      border: 1px solid #ffeeba;
-    }
-
     input, button {
       padding: 8px;
       margin: 5px 5px 5px 0;
@@ -65,14 +56,6 @@
 
   <h1>紙検索</h1>
 
-  <!-- 🛠 管理者専用エリア -->
-  <div id="adminArea" class="admin">
-    <strong>管理者モード</strong><br>
-    CSVを読み込んでデータを更新できます。
-    <br><br>
-    <input type="file" id="csvFile" accept=".csv">
-  </div>
-
   <!-- 🔍 検索フォーム -->
   <input id="keyword" placeholder="紙名で検索">
   <input id="sample" placeholder="見本帳番号で検索">
@@ -94,71 +77,28 @@
   </table>
 
   <script>
-    // ===============================
-    // 設定
-    // ===============================
-    const ADMIN_PASSWORD = "vellum"; // ★好きなパスワードに変更
-    const BASE_URL = "https://www.heiwapaper.co.jp/products/details/";
+   let data = [];
 
-    let data = [];
+// ===============================
+// CSVをGitHubから自動読み込み（★ここに追加！）
+// ===============================
+fetch("data.csv")
+  .then(res => res.text())
+  .then(text => {
+    const lines = text.split("\n").map(l => l.trim()).filter(l => l);
+    const headers = lines[0].split(",");
 
-    // ===============================
-    // 保存データの復元（重要）
-    // ===============================
-    const savedData = localStorage.getItem("paperData");
-    if (savedData) {
-      data = JSON.parse(savedData);
-    }
-
-    // ===============================
-    // 管理者判定 + パスワード
-    // ===============================
-    const isAdminURL = window.location.search.includes("admin=true");
-
-    if (isAdminURL) {
-      const input = prompt("管理者パスワードを入力してください");
-      if (input === ADMIN_PASSWORD) {
-        document.getElementById("adminArea").style.display = "block";
-      } else {
-        alert("パスワードが違います");
-        history.replaceState(null, "", window.location.pathname);
-      }
-    }
-
-    // ===============================
-    // CSV読み込み（管理者のみ）
-    // ===============================
-    const csvInput = document.getElementById("csvFile");
-    if (csvInput) {
-      csvInput.addEventListener("change", function(e) {
-        const reader = new FileReader();
-
-        reader.onload = function() {
-          const lines = reader.result
-            .split("\n")
-            .map(l => l.trim())
-            .filter(l => l !== "");
-
-          const headers = lines[0].split(",");
-
-          data = lines.slice(1).map(line => {
-            const values = line.split(",");
-            let obj = {};
-            headers.forEach((h, i) => {
-              obj[h.trim()] = values[i] ? values[i].trim() : "";
-            });
-            return obj;
-          });
-
-          // ★ 保存（次回以降も使う）
-          localStorage.setItem("paperData", JSON.stringify(data));
-
-          alert("CSVを読み込みました。次回からは自動でこのデータを使用します。");
-        };
-
-        reader.readAsText(e.target.files[0]);
+    data = lines.slice(1).map(line => {
+      const values = line.split(",");
+      let obj = {};
+      headers.forEach((h, i) => {
+        obj[h.trim()] = values[i] ? values[i].trim() : "";
       });
-    }
+      return obj;
+    });
+
+    search(); // ← 読み込んだらすぐ表示
+  });
 
 //
 document.getElementById("keyword").addEventListener("input", search);

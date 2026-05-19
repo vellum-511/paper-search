@@ -148,6 +148,7 @@ const result = data.filter(row => {
   return (
     nKw === "" ||
     name.includes(nKw) ||
+    (reading && reading.includes(nKw) && nKw.length >= 2)
   ); 
 });
   

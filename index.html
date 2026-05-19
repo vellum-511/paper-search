@@ -148,9 +148,10 @@ const result = data.filter(row => {
   return (
     nKw === "" ||
     name.includes(nKw) ||
-   (reading && nKw.length >= 2 && reading.includes(nKw))
-  );
+  ); 
 });
+  
+  console.log("件数:", result.length);
 
   result.forEach(row => {
     const tr = document.createElement("tr");

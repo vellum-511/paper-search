@@ -49,6 +49,19 @@
       color: #2a5db0;
       cursor: pointer;
     }
+    body {
+  font-size: 16px;
+}
+
+input {
+  font-size: 16px;
+  width: 100%;
+  max-width: 300px;
+}
+
+button {
+  font-size: 16px;
+}
   </style>
 </head>
 
@@ -160,7 +173,10 @@ const result = data.filter(row => {
     tbody.appendChild(tr);
   });
 }
-         </script>
+  if (result.length === 0) {
+  tbody.innerHTML = "<tr><td colspan='6'>該当する紙が見つかりません</td></tr>";
+}   
+  </script>
 
 </body>
 </html>

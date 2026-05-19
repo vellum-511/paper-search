@@ -113,6 +113,10 @@ fetch("data.csv")
 
     search(); // ← 読み込んだらすぐ表示
   });
+    window.onload = function() {
+     if (data.length > 0) {
+  search();
+};
 
 //
 document.getElementById("keyword").addEventListener("input", search);

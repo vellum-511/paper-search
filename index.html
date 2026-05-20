@@ -144,12 +144,17 @@ const nKw = normalize(kw);
 const result = data.filter(row => {
   const name = normalize(row.paper_name);
   const reading = normalize(row.reading);
+  const sample = normalize(row.sumple_number
 
-  return (
+  const keywordMatch =
     nKw === "" ||
     name.includes(nKw) ||
-    (reading && reading.includes(nKw) && nKw.length >= 2)
-  ); 
+    (reading && reading.includes(nKw) && nKw.length >= 2);
+  const sampleMatch =
+    nSn === "" ||
+    sample.includes(nSn);
+
+  return keywordMatch && sampleMatch;
 });
   
   console.log("件数:", result.length);

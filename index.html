@@ -143,17 +143,18 @@ const nKw = normalize(kw);
 const nSn = normalize(sn);
 
 const result = data.filter(row => {
-  const name = normalize(row.paper_name);
-  const reading = normalize(row.reading);
-  const sample = normalize(row.sample_number)
+  const name = normalize(row.paper_name || "");
+  const reading = normalize(row.reading || "");
+  const sample = normalize(row.sample_number || "");
 
   const keywordMatch =
     nKw === "" ||
     name.includes(nKw) ||
     (reading && reading.includes(nKw) && nKw.length >= 2);
+  
   const sampleMatch =
     nSn === "" ||
-    sample.includes(nSn);
+    (sample && sample.includes(nSn));
 
   return keywordMatch && sampleMatch;
 });

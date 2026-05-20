@@ -140,11 +140,12 @@ function search() {
   tbody.innerHTML = "";
 
 const nKw = normalize(kw);
+const nSn = normalize(sn);
 
 const result = data.filter(row => {
   const name = normalize(row.paper_name);
   const reading = normalize(row.reading);
-  const sample = normalize(row.sumple_number
+  const sample = normalize(row.sample_number)
 
   const keywordMatch =
     nKw === "" ||

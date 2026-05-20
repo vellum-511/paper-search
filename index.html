@@ -2,29 +2,51 @@
 <html lang="ja">
 <head>
   <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
   <title>紙検索システム</title>
 
   <style>
     body {
       font-family: sans-serif;
-      padding: 20px;
+      padding: 15px;
       background: #f7f7f7;
+      font-size: 16px;
     }
 
     h1 {
       margin-bottom: 10px;
+      font-size: 20px;
     }
 
     input, button {
-      padding: 8px;
-      margin: 5px 5px 5px 0;
+      display: block;
+      width: 100%;
+      padding: 12px;
+      margin-bottom: 10px;
+      font-size: 16px;
+      box-sizing: border-box;
+      border-radius: 8px;
+    }
+    
+    input {
+      border: 1px solid #ccc;
+    }
+
+    button {
+      background: #2a5db0;
+      color: white;
+      border: none;
     }
 
     table {
       width: 100%;
-      margin-top: 20px;
+      margin-top: 15px;
       border-collapse: collapse;
       background: white;
+      display: block;
+      overflow-x: auto;
+      white-space: nowrap;
     }
 
     th, td {
@@ -41,27 +63,10 @@
       background: #fafafa;
     }
 
-    /* 公式ページリンク（下線付き） */
     .official-link {
       text-decoration: underline;
-      text-decoration-thickness: 1px;
-      text-underline-offset: 3px;
       color: #2a5db0;
-      cursor: pointer;
-    }
-    body {
-  font-size: 16px;
-}
-
-input {
-  font-size: 16px;
-  width: 100%;
-  max-width: 300px;
-}
-
-button {
-  font-size: 16px;
-}
+    }    
   </style>
 </head>
 
@@ -83,7 +88,7 @@ button {
         <th>厚み</th>
         <th>場所</th>
         <th>サイズ</th>
-        <th>公式ページ</th>
+        <th>公式ページリンク</th>
       </tr>
     </thead>
     <tbody id="result"></tbody>

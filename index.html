@@ -77,6 +77,31 @@
       text-decoration: underline;
       color: #00bfff;
     }    
+
+    .star{
+      font-size: 18px;
+      position: relative;
+      display: inline-block;
+      color: #ccc;
+      margin-right: 2px;
+    }
+
+    .star::before{
+      content: "★";
+      position: absolute;
+      left: 0;
+      width: 0;
+      overflow: hidden;
+      color: gold;
+    }
+
+    .star.full::before {
+      width: 100%;
+    }
+
+    .star.half::before {
+      width: 50%;
+    }
   </style>
 </head>
 
@@ -100,6 +125,7 @@
         <th>厚み</th>
         <th>場所</th>
         <th>サイズ</th>
+        <th>価格指数</th>
         <th>公式ページ</th>
       </tr>
     </thead>
@@ -145,7 +171,30 @@ function normalize(text) {
 
   return text.toLowerCase();
 }
+    
+function createStars(value) {
+  const rating = value / 2;
+  const full = Math.floor(rating);
+  const hasHalf = rating % 1 >= 0.5;
 
+  let html = "";
+
+  for (let i = 0; i < full; i++) {
+    html += '<span class="star full">☆</span>';
+  }
+
+  if (hasHalf) {
+    html += '<span class="star half">☆</span>';
+  }
+
+  const empty = 5 - full - (hasHalf ? 1 : 0);
+  for (let i = 0; i < empty; i++) {
+    html += '<span class="star">☆</span>';
+  }
+
+  return html;
+}
+    
     // ===============================
     // 検索処理
     // ===============================
@@ -189,6 +238,7 @@ const result = data.filter(row => {
       <td>${row.caliper}</td>
       <td>${row.location}</td>
       <td>${row.size}</td>
+      <td>${createStars(Number(row.price_index || 0))}</td>
       <td>
         <a href="${officialUrl}" target="_blank" class="official-link">
           詳細

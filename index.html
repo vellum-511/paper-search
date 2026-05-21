@@ -102,6 +102,12 @@
     .star.half::before {
       width: 50%;
     }
+
+    .scroll-hint {
+  font-size: 13px;
+  color: #888;
+  margin: 5px 0 10px;
+}
   </style>
 </head>
 
@@ -115,6 +121,8 @@
   <input id="keyword" placeholder="紙名で検索">
   <input id="sample" placeholder="見本帳番号で検索">
   <button onclick="search()">検索</button>
+  
+  <div class="scroll-hint">👉 横にスクロールできます</div>
 
   <!-- 📄 検索結果 -->
   <table>

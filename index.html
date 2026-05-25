@@ -239,7 +239,7 @@ const result = data.filter(row => {
     const tr = document.createElement("tr");
 
     const officialUrl = row.slug
-      :BASE_URL + row.slug + ".html" 
+      ?BASE_URL + row.slug + ".html" 
       :BASE_URL + row.code + "0.html";
     
     tr.innerHTML = `

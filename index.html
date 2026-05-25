@@ -238,8 +238,10 @@ const result = data.filter(row => {
   result.forEach(row => {
     const tr = document.createElement("tr");
 
-    const officialUrl = BASE_URL + row.code + "0.html";
-
+    const officialUrl = row.slug
+      :BASE_URL + row.slug + ".html" 
+      :BASE_URL + row.code + "0.html";
+    
     tr.innerHTML = `
       <td>${row.paper_name}</td>
       <td>${row.sample_number}</td>
